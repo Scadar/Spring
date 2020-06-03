@@ -21,8 +21,6 @@ public class User implements UserDetails {
     private String password;
     @Column(unique = true)
     private String email;
-    private String phone;
-    private Boolean active;
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
@@ -51,6 +49,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return active;
+        return true;
     }
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+
+
+
+<p th:text="${user}"></p>
+<p th:if="${regInfo} != null" th:text="${regInfo}"></p>
+
+<a th:href="@{/home}">Home</a>
+<a th:href="@{/admin}">Admin</a>
+<a th:href="@{/login}">Login</a>
+<a th:href="@{/registration}">Reg</a>
+
+<form th:if="${user != 'Guest'}" th:action="@{/logout}">
+    <input type="submit" value="Logout">
+</form>
+</body>
+</html>
