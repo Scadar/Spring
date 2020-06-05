@@ -17,6 +17,7 @@
 <br>
 
 <div th:if="${invalidEmail} != null" th:text="${invalidEmail}"></div>
+<div th:if="${pwdNotEqual} != null" th:text="${pwdNotEqual}"></div>
 
 <form th:action="@{/registration}" method="post" th:object="${user}">
 
@@ -28,8 +29,10 @@
     <p>Email: <input type="text" name="email" th:value="*{email}"></p>
     <span class="validationError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 
-    <p>Password: <input type="password" name="password" th:value="*{password}"></p>
+    <p>Password: <input type="password" name="password" ></p>
     <span class="validationError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+    <p>Confirm Password: <input type="password" name="password2"></p>
 
     <p><input type="submit" value="Registration"></p>
 </form>

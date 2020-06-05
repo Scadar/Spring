@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import ru.scadarnull.domain.User;
 import ru.scadarnull.service.UserService;
 
@@ -28,7 +29,8 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String registrationUser(@Valid User user,
+    public String registrationUser(@RequestParam("password2") String passwordConfirmation,
+                                   @Valid User user,
                                    BindingResult bindingResult,
                                    Model model)
     {
@@ -43,11 +45,19 @@ public class RegistrationController {
             return "registration";
         }
 
+        if(!user.getPassword().equals(passwordConfirmation)){
+            model.addAttribute("pwdNotEqual", "Пароли не равны");
+            model.addAttribute("user", user);
+            return "registration";
+        }
+
         if(!userService.addUser(user)){
             model.addAttribute("userExists", "Такой пользователь уже есть");
             model.addAttribute("user", user);
             return "registration";
         }
+
+
 
         model.addAttribute("regInfo", "Успешная регистрация");
         return "/login";
