@@ -3,9 +3,20 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Логин</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
+<nav>
+    <div class="nav-wrapper">
+        <a class="brand-logo">Welcome, <span th:text="${#httpServletRequest.getRemoteUser()}">Username</span></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a th:href="@{/}">Index</a></li>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/admin}">Admin</a></li>
+        </ul>
+    </div>
+</nav>
 <h1>Login page</h1>
 <br>
 <div th:if="${param.error}" th:text="'Неверный логин или пароль'"></div>
@@ -16,5 +27,8 @@
     Password: <input type="password" name="password" >
     <input type="submit" value="Login">
 </form>
+<br>
+<a class="waves-effect waves-light btn" th:href="@{/registration}">Регистрация</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

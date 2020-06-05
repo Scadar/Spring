@@ -1,12 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Дом</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
 
-<h1>Home</h1>
+<nav>
+    <div class="nav-wrapper">
 
+        <a class="brand-logo">Welcome, <span th:text="${#httpServletRequest.getRemoteUser()}">Username</span></a>
+
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a th:href="@{/}">Index</a></li>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/admin}">Admin</a></li>
+        </ul>
+    </div>
+</nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

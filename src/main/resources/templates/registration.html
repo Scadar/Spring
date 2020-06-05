@@ -3,21 +3,32 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Регистрация</title>
     <style>
         .validationError{
             color: red;
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
+<nav>
+    <div class="nav-wrapper">
+        <a class="brand-logo">Welcome, <span th:text="${#httpServletRequest.getRemoteUser()}">Username</span></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a th:href="@{/}">Index</a></li>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/admin}">Admin</a></li>
+        </ul>
+    </div>
+</nav>
 <h1>Registration page</h1>
 <br>
-<p th:if="${userExists} != null" th:text="${userExists}"></p>
+<p th:if="${userExists} != null" th:text="${userExists}" class="validationError"></p>
 <br>
 
-<div th:if="${invalidEmail} != null" th:text="${invalidEmail}"></div>
-<div th:if="${pwdNotEqual} != null" th:text="${pwdNotEqual}"></div>
+<div th:if="${invalidEmail} != null" th:text="${invalidEmail}" class="validationError"></div>
+<div th:if="${pwdNotEqual} != null" th:text="${pwdNotEqual}" class="validationError"></div>
 
 <form th:action="@{/registration}" method="post" th:object="${user}">
 
@@ -36,5 +47,7 @@
 
     <p><input type="submit" value="Registration"></p>
 </form>
+<a class="waves-effect waves-light btn" th:href="@{/login}">Логин</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </body>
 </html>

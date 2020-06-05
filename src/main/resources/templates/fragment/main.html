@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      th:fragment="main-fragment (title, linkResources,mainContent, jsResources )">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${title}">Page 1</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <th:block th:replace="${linkResources} ? ${linkResources} : ~{}"></th:block>
+</head>
+<body>
+    <section>
+        <article th:insert="${mainContent} ? ${mainContent} : ~{}">
+            <h1>Page 1</h1>
+            <p>Main content of Page 1</p>
+        </article>
+    </section>
+<th:block th:replace="${jsResources} ? ${jsResources} : ~{}"></th:block>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+</html>
