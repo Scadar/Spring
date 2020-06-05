@@ -16,7 +16,7 @@
 <a th:href="@{/login}">Login</a>
 <a th:href="@{/registration}">Reg</a>
 
-<form th:if="${user != 'Guest'}" th:action="@{/logout}">
+<form th:if="${user != 'Guest'}" th:action="@{/logout}" method="post">
     <input type="submit" value="Logout">
 </form>
 </body>

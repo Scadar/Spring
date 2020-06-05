@@ -1,19 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .validationError{
+            color: red;
+        }
+    </style>
 </head>
 <body>
 <h1>Registration page</h1>
 <br>
-<p th:if="${error} != null" th:text="${error}"></p>
+<p th:if="${userExists} != null" th:text="${userExists}"></p>
 <br>
-<form th:action="@{/registration}" method="post">
-    Name: <input type="text" name="username" >
-    Email: <input type="text" name="email" >
-    Password: <input type="password" name="password" >
-    <input type="submit" value="Registration">
+
+<div th:if="${invalidEmail} != null" th:text="${invalidEmail}"></div>
+
+<form th:action="@{/registration}" method="post" th:object="${user}">
+
+    <input type="hidden" name="id" th:value="${user.id}">
+
+    <p>Name: <input type="text" name="username" th:value="*{username}"></p>
+    <span class="validationError" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+
+    <p>Email: <input type="text" name="email" th:value="*{email}"></p>
+    <span class="validationError" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+
+    <p>Password: <input type="password" name="password" th:value="*{password}"></p>
+    <span class="validationError" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+
+    <p><input type="submit" value="Registration"></p>
 </form>
 </body>
 </html>

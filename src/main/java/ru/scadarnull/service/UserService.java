@@ -6,9 +6,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.scadarnull.domain.RegistrationForm;
+import ru.scadarnull.domain.Role;
 import ru.scadarnull.domain.User;
 import ru.scadarnull.repo.UserRepo;
+
+import java.util.Collections;
+import java.util.UUID;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -21,18 +24,28 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByUsername(username);
+        User user = userRepo.findByUsername(username);
+        if(user == null){
+            throw new UsernameNotFoundException("not found");
+        }
+        return user;
     }
 
-    public boolean addUser(RegistrationForm newUser){
-        User user = userRepo.findByUsername(newUser.getUsername());
+    public boolean addUser(User user){
+        User userFromDb = userRepo.findByUsername(user.getUsername());
 
-        if(user != null){
+        if(userFromDb != null){
             return false;
         }
-
-        userRepo.save(newUser.toUser(passwordEncoder));
-
+        user.setRoles(Collections.singleton(Role.USER));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepo.save(user);
         return true;
+    }
+
+    public boolean checkEmail(String email){
+        User user = userRepo.findByEmail(email);
+
+        return !(user == null);
     }
 }
