@@ -33,8 +33,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .defaultSuccessUrl("/home")
                 .and()
                     .logout()
+                    .deleteCookies("JSESSIONID")
                     .logoutSuccessUrl("/")
-                    .permitAll();
+                    .permitAll()
+                .and()
+                    .rememberMe()
+                    .key("YQx2qnjbaIBASBhIABkjnKJB")
+                    .tokenValiditySeconds(315360000);
 
 
     }
