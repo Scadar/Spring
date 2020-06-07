@@ -12,11 +12,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal User user, Model model){
-        if(user != null){
-            model.addAttribute("user", user.getUsername());
-        }else{
-            model.addAttribute("user", "Guest");
-        }
         return "index";
     }
 
@@ -25,13 +20,13 @@ public class HomeController {
         return "login";
     }
 
-    @PreAuthorize(value = "hasAuthority('USER') or hasAuthority('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('ROLE_USER') or hasAuthority('ROLE_ADMIN')")
     @GetMapping("/home")
     public String home(){
         return "home";
     }
 
-    @PreAuthorize(value = "hasAuthority('ADMIN')")
+    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
     @GetMapping("/admin")
     public String forAdmin(){
         return "admin";
