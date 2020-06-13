@@ -1,6 +1,8 @@
 package ru.scadarnull.controller;
 
 import org.dom4j.rule.Mode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,8 +18,8 @@ import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
+    private static final Logger LOG = LoggerFactory.getLogger(RegistrationController.class);
 
     @Autowired
     private UserService userService;

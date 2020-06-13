@@ -38,7 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .rememberMe()
-                    .key("YQx2qnjbaIBASBhIABkjnKJB")
                     .tokenValiditySeconds(315360000);
 
 
