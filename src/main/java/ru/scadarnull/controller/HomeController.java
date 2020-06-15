@@ -16,6 +16,7 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(@AuthenticationPrincipal User user, Model model){
+
         return "index";
     }
 
@@ -35,4 +36,5 @@ public class HomeController {
     public String forAdmin(){
         return "admin";
     }
+
 }
