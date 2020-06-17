@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -10,45 +9,14 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" th:href="@{/}" style="margin-right: 40px;">MyCalories</a>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" th:href="@{/home}">Дневник</a>
-            </li>
-            <li class="nav-item active" sec:authorize="hasRole('ADMIN')">
-                <a class="nav-link" th:href="@{/admin}">Админ панель</a>
-            </li>
-        </ul>
-
-        <th:block sec:authorize="isAuthenticated()">
-            <span class="navbar-text mr-3" sec:authentication="name"></span>
-            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="form-inline my-2 my-lg-0">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Выйти</button>
-            </form>
-        </th:block>
-
-        <th:block sec:authorize="isAnonymous()">
-            <form class="form-inline my-2 my-lg-0 mr-3" th:action="@{/login}">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Войти</button>
-            </form>
-            <form class="form-inline my-2 my-lg-0" th:action="@{/registration}">
-                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Регистарция</button>
-            </form>
-        </th:block>
-        </span>
-    </div>
-</nav>
-
+<div th:replace="/fragment/main :: navbar"></div>
 
 
 <div class="container">
 
     <p style="margin-top: 30px; margin-bottom: 30px;">
         <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            Link with href
+            Добавить
         </a>
     </p>
     <div class="collapse mb-15" id="collapseExample" style="max-width: 50%; margin-bottom: 30px;">
@@ -85,8 +53,8 @@
             <td th:text="${meal.time}">Mark</td>
             <td th:text="${meal.description}">Otto</td>
             <td th:text="${meal.calories}">Otto</td>
-            <td><a th:href="@{'/edit/' + ${meal.id}}">Редактировать</a></td>
-            <td><a th:href="@{'/delete/' + ${meal.id}}">Удалить</a></td>
+            <td><a th:href="@{'meals/edit/' + ${meal.id}}">Редактировать</a></td>
+            <td><a th:href="@{'meals/delete/' + ${meal.id}}">Удалить</a></td>
         </tr>
         </tbody>
     </table>

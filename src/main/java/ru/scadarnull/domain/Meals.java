@@ -4,12 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
-import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -26,4 +22,7 @@ public class Meals {
     private String description;
 
     private Integer calories;
+
+    @ManyToOne
+    private User user;
 }
