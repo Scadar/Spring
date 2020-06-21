@@ -4,27 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Логин</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <div th:replace="/fragment/main :: css"></div>
     <link rel="stylesheet" type="text/css" href="../static/css/login-form.css">
 </head>
 <body>
 <div th:replace="/fragment/main :: navbar"></div>
 
 <div class="container">
-<div class="form-login">
+<div class="form-login" style="min-height: 600px;">
     <form class="form-signin" th:action="@{/login}" method="post">
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
         </div>
 
         <div class="form-group">
-            <label for="formGroupExampleInput">Логин</label>
-            <input type="text" class="form-control" id="formGroupExampleInput" name="username">
+            <label for="formGroupLoginUserName">Логин</label>
+            <input type="text" class="form-control" id="formGroupLoginUserName" name="username">
         </div>
 
         <div class="form-group">
-            <label for="formGroupExampleInput2">Пароль</label>
-            <input type="password" class="form-control" id="formGroupExampleInput2" name="password">
+            <label for="formGroupLoginPassword">Пароль</label>
+            <input type="password" class="form-control" id="formGroupLoginPassword" name="password">
         </div>
 
         <div class="checkbox mb-3">
@@ -33,17 +33,14 @@
             </label>
 
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="loginFormSubmit">Войти</button>
         <div th:if="${param.error}" th:text="'Неверный логин или пароль'" class="text-danger mt-2"></div>
         <div th:if="${regInfo} != null" th:text="${regInfo}" class="text-success mt-2"></div>
     </form>
 </div>
 </div>
 
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-
+<div th:replace="/fragment/main :: footer"></div>
+<div th:replace="/fragment/main :: js"></div>
 </body>
 </html>

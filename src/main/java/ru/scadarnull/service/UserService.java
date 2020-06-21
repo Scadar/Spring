@@ -13,6 +13,7 @@ import ru.scadarnull.domain.User;
 import ru.scadarnull.repo.UserRepo;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -53,4 +54,6 @@ public class UserService implements UserDetailsService {
 
         return !(user == null);
     }
+
+
 }

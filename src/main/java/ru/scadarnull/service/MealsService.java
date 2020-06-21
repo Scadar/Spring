@@ -1,16 +1,16 @@
 package ru.scadarnull.service;
 
-import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.scadarnull.domain.Meals;
 import ru.scadarnull.domain.User;
+import ru.scadarnull.domain.utils.DailyCalories;
 import ru.scadarnull.repo.MealsRepo;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MealsService {
@@ -45,6 +45,22 @@ public class MealsService {
 
 
     public List<Meals> getUserMeals(User user) {
-        return mealsRepo.findAllByUser(user);
+        List<Meals> result = mealsRepo.findAllByUser(user);
+        result.sort((a,b) -> b.getTime().compareTo(a.getTime()));
+        return result;
+    }
+
+    public Map<Date, Long> getSumByDay(User user) {
+        List<DailyCalories> sumByDay = mealsRepo.findSumByDay(user.getId());
+
+        Map<Date, Long> result = new LinkedHashMap<>();
+
+        for(DailyCalories d : sumByDay){
+            result.put(d.getTime(), d.getCalories());
+        }
+
+        return result.entrySet().stream()
+                .sorted((o1, o2) -> o2.getKey().compareTo(o1.getKey()))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (a, b) -> a, LinkedHashMap::new));
     }
 }

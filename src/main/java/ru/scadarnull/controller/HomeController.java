@@ -31,10 +31,6 @@ public class HomeController {
         return "home";
     }
 
-    @PreAuthorize(value = "hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/admin")
-    public String forAdmin(){
-        return "admin";
-    }
+
 
 }

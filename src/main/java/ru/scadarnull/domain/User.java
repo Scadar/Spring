@@ -29,7 +29,7 @@ public class User implements UserDetails {
 
     @Column(unique = true)
     @Email
-    @NotNull(message = "Заполните почту")
+    @Size(min = 1, message = "Заполните почту")
     private String email;
 
     @Enumerated(EnumType.STRING)

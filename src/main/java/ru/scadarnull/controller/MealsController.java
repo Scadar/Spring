@@ -23,6 +23,7 @@ public class MealsController {
     public String meals(@AuthenticationPrincipal User user, Model model){
         model.addAttribute("meals", mealsService.getUserMeals(user));
         model.addAttribute("meal", new Meals());
+        model.addAttribute("dailyMeals", mealsService.getSumByDay(user));
         return "meals";
     }
 
