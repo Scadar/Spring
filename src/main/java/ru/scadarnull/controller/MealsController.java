@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.scadarnull.domain.Meals;
 import ru.scadarnull.domain.User;
 import ru.scadarnull.service.MealsService;
+
+import javax.validation.Valid;
 
 @Controller
 public class MealsController {
@@ -28,7 +32,17 @@ public class MealsController {
     }
 
     @PostMapping("/meals")
-    public String addMeals(@AuthenticationPrincipal User user, @ModelAttribute Meals meal){
+    public String addMeals(@AuthenticationPrincipal User user,
+                           @ModelAttribute @Valid Meals meal,
+                           BindingResult bindingResult,
+                           Model model)
+    {
+        if(bindingResult.hasErrors()){
+            model.addAttribute("meal", meal);
+            model.addAttribute("meals", mealsService.getUserMeals(user));
+            model.addAttribute("dailyMeals", mealsService.getSumByDay(user));
+            return "/meals";
+        }
         meal.setUser(user);
         mealsService.addEditMeals(meal);
         return "redirect:/meals";
@@ -53,9 +67,17 @@ public class MealsController {
     }
 
     @PostMapping("/meals/edit")
-    public String editMeals(@AuthenticationPrincipal User user, @ModelAttribute Meals meals){
-        meals.setUser(user);
-        mealsService.addEditMeals(meals);
+    public String editMeals(@AuthenticationPrincipal User user,
+                            @ModelAttribute @Valid Meals meal,
+                            BindingResult bindingResult,
+                            RedirectAttributes redirectAttributes)
+    {
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("meal", meal);
+            return "redirect:/meals/edit/" + meal.getId();
+        }
+        meal.setUser(user);
+        mealsService.addEditMeals(meal);
         return "redirect:/meals";
     }
 
